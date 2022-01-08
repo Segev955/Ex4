@@ -37,6 +37,7 @@ Open the floder of the project and write this line in the terminal command:
 
 python codes./Ex4.py ** <br>
 (** enter one of the cases)
+![image](https://user-images.githubusercontent.com/93653029/148661053-8f7ac22c-4c48-4c04-9d6e-996e8a6385fd.png)
 
 
 <br>
