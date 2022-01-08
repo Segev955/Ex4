@@ -24,8 +24,66 @@ The game is being played on a “server” that was given to us. we designed and
 
 ## UML
 
-![image](https://user-images.githubusercontent.com/93653029/148660688-652f75b6-1265-40ca-8c15-2fae78465fe0.png)
 
+
+
+
+
+ 
+  
+  
+  
+  
+ 
+ 
+  
+  
+ 
+ 
+  
+ 
+ 
+  
+  
+  
+ 
+
+
+
+
+
+
+ 
+  
+  
+  
+  
+ 
+ 
+  
+  
+  
+ 
+ 
+  
+ 
+ 
+  
+  
+ 
+
+
+
+
+
+
+ 
+  
+ 
+ 
+  
+  
+ 
 
 
 
