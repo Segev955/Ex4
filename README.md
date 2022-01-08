@@ -10,7 +10,7 @@ The game is being played on a “server” that was given to us. we designed and
 
 
 
-##  algorithm definition:
+##  Algorithm Definition:
  in our algorithm, what we do is go over all the pokemons that are currently on the screen (=pokemons that are in the game) , and for each pokemon, we find an agent that will get there the fastest.
  this algorithm relies on the "shortest path" function we created last assignment - this function finds the shortest path from a node on the graph to another node. 
  in our case we used it to find the shortest path from an agent to a pokemon.for each agent we checked the time it will take him to reach the pokemon , and the fastest agent of them all was assigned the task
@@ -27,14 +27,14 @@ The game is being played on a “server” that was given to us. we designed and
 
 
 
-## results
+## Results
 
 
 ## Running The Program
 
 Open the floder of the project and write this line in the terminal command:
 
-python codes./Ex4.py **
+python codes./Ex4.py ** <br>
 (** enter one of the cases)
 
 
