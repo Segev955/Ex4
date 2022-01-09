@@ -29,7 +29,7 @@ The game is being played on a “server” that was given to us. we designed and
 
 
 ## Algorithm Results
- can be found in the wiki added to this github project.
+ can be found in the wiki added to this github project.https://github.com/Segev955/Ex4/wiki
 
 ## Running The Program
 
