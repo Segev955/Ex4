@@ -29,8 +29,7 @@ The game is being played on a “server” that was given to us. we designed and
 
 
 ## Algorithm Results
-![image](https://user-images.githubusercontent.com/93653029/148682988-2e53d55d-de57-4889-8a0b-3d710f2c8880.png)
-
+ can be found in the wiki added to this github project.
 
 ## Running The Program
 
