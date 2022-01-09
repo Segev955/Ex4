@@ -1,5 +1,6 @@
-# Ex4
-python
+## Ex4
+## python
+![image](https://i.imgur.com/8NFFB92.jpg)
 
 in this assignment we were required to create an algorithm that demonstrates a computer game - 
 the game's puropse is to move different agents in the best way for them to capture valuable “Pokemons”.
