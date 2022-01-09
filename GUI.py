@@ -4,26 +4,33 @@ OOP - Ex4
 Very simple GUI example for python client to communicates with the server and "play the game!"
 """
 import os
+import sys
+import time
 from types import SimpleNamespace
 
 import json
 
-from pygame import gfxdraw
+from pygame import gfxdraw, display, RESIZABLE
 import pygame
-from pygame import *
+# from pygame import
 import subprocess
 
 # init pygame
 
 
 # run server
+from pygame.color import Color
+
 from GameAlgo import GameAlgo
 from Images import Button, PokemonImages, AgentsImages
 from GraphAlgo import GraphAlgo
 from PokemonsAndAgents import AgePok
 from client import Client
 
-subprocess.Popen(["powershell.exe", "java -jar Ex4_Server_v0.0.jar 5"])
+if len(sys.argv) > 1:
+    subprocess.Popen(["powershell.exe", "java -jar Ex4_Server_v0.0.jar", sys.argv[1]])
+else:
+    subprocess.Popen(["powershell.exe", "java -jar Ex4_Server_v0.0.jar 0"])
 
 WIDTH, HEIGHT = 1080, 720
 
@@ -40,6 +47,7 @@ pygame.font.init()
 client = Client()
 client.start_connection(HOST, PORT)
 stop_button = Button()
+
 pokemonsimg = PokemonImages()
 agentsimg = AgentsImages()
 game = GameAlgo()
@@ -52,7 +60,7 @@ MAP = pygame.transform.scale(MAP_IMAGE, (screen.get_width(), screen.get_height()
 graph_json = client.get_graph()
 graph = GraphAlgo()
 g = graph.graph
-graph.load_from_json(graph_json)
+graph.load_from_str(graph_json)
 
 FONT = pygame.font.SysFont('Arial', 20, bold=True)
 
@@ -97,7 +105,6 @@ for i in range(int(json.loads(client.get_info())["GameServer"]["agents"])):
         client.add_agent(f"{s1}{so2[i][0][0]}{s2}")
     else:
         client.add_agent(f"{s1}{so2[0][0][0]}{s2}")
-
 
 # this commnad starts the server - the game is running now
 client.start()
@@ -148,15 +155,39 @@ while client.is_running() == 'true':
     #         dest_x = my_scale(g.nodes[u].pos.x, x=True)
     #         dest_y = my_scale(g.nodes[u].pos.y, y=True)
 
-            # draw the line
-            # pygame.draw.line(screen, Color(61, 72, 126),
-            #                  (src_x, src_y), (dest_x, dest_y))
+    # draw the line
+    # pygame.draw.line(screen, Color(61, 72, 126),
+    #                  (src_x, src_y), (dest_x, dest_y))
 
+    gameserver = json.loads(client.get_info())["GameServer"]
     # draw time
-    timeleft = float(client.time_to_end()) / 1000
-    timelabel = FONT.render(f"Time Left: {int(timeleft)}", True, (0, 0, 0))
-    rect = timelabel.get_rect(center=(110, 10))
-    screen.blit(timelabel, rect)
+    timeLeft = float(client.time_to_end()) / 1000
+    timelabel = FONT.render(f"Time Left: {int(timeLeft)}", True, (191, 62, 255))
+    rect = timelabel.get_rect(center=(100, 10))
+    timesurface = pygame.Surface(timelabel.get_size())
+    timesurface.fill((100, 100, 100))
+    timesurface.blit(timelabel, (0, 0))
+    screen.blit(timesurface, rect)
+
+    # draw moves:
+    move = str(gameserver['moves'])
+    moves = FONT.render(f"Moves: {move}", True, (191, 62, 255))
+    rect2 = moves.get_rect(center=(200, 10))
+    movesurface = pygame.Surface(moves.get_size())
+    movesurface.fill((100, 100, 100))
+    movesurface.blit(moves, (0, 0))
+    screen.blit(movesurface, rect2)
+
+    # draw grade:
+    grade = str(gameserver['grade'])
+    grades = FONT.render(f"Grade: {grade}", True, (191, 62, 255))
+    rect3 = moves.get_rect(center=(300, 10))
+    gradesurface = pygame.Surface(grades.get_size())
+    gradesurface.fill((100, 100, 100))
+    gradesurface.blit(grades, (0, 0))
+    screen.blit(gradesurface, rect3)
+
+    # moves.draw(screen, (0, 0, 0))
 
     # draw agents
     agentsimg.draw(screen, agents)
@@ -174,6 +205,16 @@ while client.is_running() == 'true':
 
     # choose next edge
     game.run(client, agents, agentPath, graph, so)
+    bo = False
+    for agent in agents:
+        if agent.id in agentPath.age and agentPath.age[agent.id] != {} and len(
+                agentPath.age[agent.id]) > 0:
+            if agent.src == agentPath.age[agent.id][0]:
+                bo = True
+                break
+
+    if not bo:
+        time.sleep(0.11)
     client.move()
     ttl = client.time_to_end()
 

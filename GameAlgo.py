@@ -43,13 +43,12 @@ class GameAlgo():
         t = dist / agent.speed
         return t, short
 
-
     def run(self, client, agents, agentPath, graph, so):
 
         for agent in agents:
             agent.work = True
-            if agent.id in agentPath.age and len(
-                            agentPath.age[agent.id]) > 0 and agent.src == agentPath.age[agent.id][0]:
+            if agent.id in agentPath.age and len(  # if agent on his way and got to his next node
+                    agentPath.age[agent.id]) > 0 and agent.src == agentPath.age[agent.id][0]:
                 agentPath.age[agent.id].remove(agent.src)
             for p in so:
                 tmin = float('inf')
@@ -60,13 +59,13 @@ class GameAlgo():
                     if bo:
                         break
                     if agent2.id in agentPath.age and agentPath.age[agent2.id] != {} and len(
-                            agentPath.age[agent2.id]) > 0:
+                            agentPath.age[agent2.id]) > 0:  # if agent on his way
                         if p[0][1] in agentPath.age[agent2.id] and p[0][0] in agentPath.age[agent2.id]:
                             bo = True
                             break
                     else:
                         dist, short = self.choose_agent(agent2, p[0][0], graph)
-                        if dist < tmin:
+                        if dist < tmin:  # find the best agent
                             tmin = dist
                             a = agent2
                             path = short
@@ -76,17 +75,8 @@ class GameAlgo():
                 if a is not None:
                     agentPath.age[a.id] = path
                     agentPath.age[a.id].append(p[0][1])
-            if agent.id in agentPath.age and agentPath.age[agent.id] != {} and len(
+            if agent.id in agentPath.age and agentPath.age[agent.id] != {} and len(  # if agent on his way
                     agentPath.age[agent.id]) > 0:
                 next_node = agentPath.age[agent.id][0]
                 client.choose_next_edge(
                     '{"agent_id":' + str(agent.id) + ', "next_node_id":' + str(next_node) + '}')
-            # if agent.dest != -1:
-    #             if agent.src != agentPath.age[agent.id][0]:
-    #                 self.sleep(agent, agentPath)
-    #
-    # def sleep(self, agent, agentPath):
-    #     time.sleep(0.015)
-    #     if agent.src != agentPath.age[agent.id][0]:
-    #         return self.sleep(agent, agentPath)
-

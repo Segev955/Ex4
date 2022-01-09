@@ -24,6 +24,21 @@ class GraphAlgo(GraphAlgoInterface):
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
+        with open(file_name, "r") as f:
+            dict = json.load(fp=f)
+        for n in dict["Nodes"]:
+            if "pos" in n:
+                s = n["pos"]
+                l = s.split(",")
+                self.graph.add_node(int(n["id"]), (float(l[0]), float(l[1]), float(l[2])))
+            else:
+                s = None
+                self.graph.add_node(int(n["id"]), s)
+        for v in dict["Edges"]:
+            self.graph.add_edge(v["src"], v["dest"], v["w"])
+        return True
+
+    def load_from_str(self, file_name: str) -> bool:
         # with open(file_name, "r") as f:
         f = json.loads(file_name)
         dict = f
