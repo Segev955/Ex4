@@ -1,4 +1,4 @@
-# Ex4
+## Ex4
 python
 
 in this assignment we were required to create an algorithm that demonstrates a computer game - 
